@@ -41,7 +41,7 @@ namespace DictionaryCreator
             this.TryAdd();
         }
 
-        private void AddEntryForm_KeyDown(object sender, KeyEventArgs e)
+        private void answerTextbox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

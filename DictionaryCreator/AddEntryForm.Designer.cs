@@ -66,6 +66,7 @@
             this.answerTextbox.Name = "answerTextbox";
             this.answerTextbox.Size = new System.Drawing.Size(290, 20);
             this.answerTextbox.TabIndex = 3;
+            this.answerTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.answerTextbox_KeyDown);
             // 
             // addButton
             // 
@@ -91,7 +92,6 @@
             this.MinimizeBox = false;
             this.Name = "AddEntryForm";
             this.Text = "Add entries";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddEntryForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
