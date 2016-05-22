@@ -11,7 +11,7 @@ namespace DictionaryBase
         public string Author { get; set; }
         public string Identifier { get; set; }
         public DateTime CreatedOn { get; set; }
-        public bool DoCheck { get; set; }
+        public bool DoCheck { get; set; } = true;
 
         public Dictionary()
         {
@@ -142,6 +142,11 @@ namespace DictionaryBase
         public void RemoveEntry(int index)
         {
             this.Data.RemoveAt(index);
+        }
+
+        public void SetCurrentTime()
+        {
+            this.CreatedOn = DateTime.Now;
         }
     }
 }
