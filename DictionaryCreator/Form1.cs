@@ -157,9 +157,9 @@ namespace DictionaryCreator
                     this.saved = true;
                     this.UpdateFormTitle();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    MessageBox.Show("Failed to load this file as a dictionary." + e.InnerException.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to load this file as a dictionary.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             dialog.Dispose();

@@ -46,6 +46,8 @@ namespace DictionaryCreator
             if (e.KeyCode == Keys.Enter)
             {
                 this.TryAdd();
+                this.questionTextbox.Focus();
+                e.Handled = true;
             }
         }
     }
