@@ -35,10 +35,11 @@ namespace DictionaryBase
 
         public Dictionary(string saveAddress)
         {
+            BinaryReader reader = null;
             try
             {
                 FileStream inputStream = new FileStream(saveAddress, FileMode.Open);
-                BinaryReader reader = new BinaryReader(inputStream);
+                reader = new BinaryReader(inputStream);
                 byte firstByte = reader.ReadByte();
                 if (firstByte == 255)
                 {
@@ -57,12 +58,17 @@ namespace DictionaryBase
                 {
                     this.Data.Add(new Tuple<string, string>(reader.ReadString(), reader.ReadString()));
                 }
-                reader.Close();
-                inputStream.Close();
             }
             catch (Exception e)
             {
                 throw new IOException("Couldn't load the specified file.", e);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
             }
         }
 
@@ -92,7 +98,7 @@ namespace DictionaryBase
                 () => this.Name = reader.ReadString(),
                 () => this.Author = reader.ReadString(),
                 () => this.Identifier = reader.ReadString(),
-                () => this.CreatedOn = new DateTime(1970, 1, 1, 0, 0, reader.ReadInt32()),
+                () => this.SetAsUnixTime(reader.ReadInt32()),
                 () => this.DoCheck = reader.ReadBoolean()
             };
             for (int i = 0; i < loaders.Length; i++)
@@ -131,7 +137,7 @@ namespace DictionaryBase
 
         private int GetAsUnixTime()
         {
-            return (int)(this.CreatedOn - new DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime()).TotalMilliseconds;
+            return (int)(this.CreatedOn - new DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime()).TotalSeconds;
         }
 
         public void SetEntry(int index, Tuple<string, string> value)
