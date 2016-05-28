@@ -1,0 +1,50 @@
+body {
+    background-color: #42b263;
+    margin: 0;
+}
+
+.main {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.title {
+    font-family: Arial;
+    align-items: center;
+    text-align: center;
+    border: solid;
+    border-color: bisque;
+    border-width: 15px;
+}
+
+.content {
+    padding: 2%;
+    font-family: 'Vani';
+}
+
+.quote {
+    font-style: italic;
+    font-weight: bold;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.note {
+    font-style: italic;
+    font-family: 'Times New Roman', Timer, serif;
+}
+
+.subtitle {
+    font-family: Arial;
+}
+
+table.framed-table > tbody > tr > td, table.framed-table > tbody > tr > th {
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}

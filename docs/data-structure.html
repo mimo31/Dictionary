@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Data structure documentation</title>
+<link rel="stylesheet" type="text/css" href="../Style.css">
+</head>
+<body>
+<div class="main">
+<div class="title">
+<h1>Data structure documentation</h1>
+<p class="quote">To know what is where</p>
+</div>
+<div class="content">
+<p>Note: <span class="note">Following articles decribe the data structure of the dev versions. The data structure of the pre-dev versions is explained at the end of this page.</span></p>
+<h3 class="subtitle">Dev versions</h3>
+<p class="note">This part specifies the state to the day of 5/16/2016.</p>
+<p>Here is an ordered table of the contents of a typical Dictionary:</p>
+<table class="framed-table">
+<tr>
+	<td>Init byte</td>
+</tr>
+<tr>
+	<td>Header length</td>
+</tr>
+<tr>
+	<td>General information</td>
+</tr>
+<tr>
+	<td>Number of entries</td>
+</tr>
+<tr>
+	<td>Entries</td>
+</tr>
+</table>
+<h4 class="subtitle">Init byte</h4>
+<p>All Dictionaries created for dev versions start with #ff to differentiate them from pre-dev Dictionaries. This is because pre-dev Dictionaries had slithly different data structure and that would otheriwise cause problems when reading the file.</p>
+<h4 class="subtitle">Header length</h4>
+<p>Header length is a 32-bit signed integer that provides the information about the length of the general information. Specificaly, it says the length of general information part in bytes.
+<h4 class="subtitle">General information</h4>
+<p>General information holds important data about the whole Dictionary like its Author, the date of creation etc. The current ordered list is here:</p>
+<table class="framed-table">
+<tbody>
+<tr>
+	<th>Entry</th>
+	<th>Data type</th>
+	<th>Describtion</th>
+</tr>
+<tr>
+	<td>Name</td>
+	<td>string</td>
+	<td>A descriptive name that characterizes the content.</td>
+</tr>
+<tr>
+	<td>Author</td>
+	<td>string</td>
+	<td>The name or a nickname of the person who has written data into this Dictionary.</td>
+</tr>
+<tr>
+	<td>Identifier</td>
+	<td>string</td>
+	<td>A few letters long string that usually specifies the school subject of this Dictionary.</td>
+</tr>
+<tr>
+	<td>Time of creation</td>
+	<td>32-bit signed integer</td>
+	<td>A Unix Timestamp that specifies the time of creation of this Dictionary. If the Dictionary was edited after that time, then the time when the main part was written is used.</td>
+</tr>
+<tr>
+	<td>Is checked?</td>
+	<td>boolean</td>
+	<td>A boolean value that determine whether the answer to the questions should be checked by default. This should be set to false in Dictionaries with long and/or variable answers.</td>
+</tr>
+</tbody>
+</table>
+<h4 class="subtitle">Number of entries</h4>
+<p>The number of entries specifies the number of question-answer pairs in the Dictionary.</p>
+<h4 class="subtitle">Entries</h4>
+<p>This is the last part of the Dictionary. It contains n question-answer string tuples where n is the number of entries defined above.
+<h3 class="subtitle">Pre-dev versions</h3>
+<p>The primary difference between pre-dev and dev Dictionaries is that pre-dev Dictionaries do not contain the general information.</p>
+<p>Therefore, pre-dev Dictionaries only contain the number of entries at the beginning and then the entries themselves.
+</div>
+</div>
+</body>
+</html>
