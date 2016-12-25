@@ -6,24 +6,37 @@ namespace DictionaryBase
 {
     public class Dictionary
     {
-        List<Tuple<string, string>> Data;
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public string Identifier { get; set; }
+        List<DictionaryEntry> Data;
+        public string Name { get; set; } = "";
+        public string Author { get; set; } = "";
+        public string Identifier { get; set; } = "";
         public DateTime CreatedOn { get; set; }
         public bool DoCheck { get; set; } = true;
 
+		// the version of the Dictionary structure of this Dictionary, 0 the lowest
+        public uint Version { get; set; } = 0;
+
         public Dictionary()
         {
-            this.Data = new List<Tuple<string, string>>();
+            this.Data = new List<DictionaryEntry>();
         }
 
-        public void AddEntry(string question, string answer)
+        public void AddEntry(string question, string answer, string categories, string note)
         {
-            this.Data.Add(new Tuple<string, string>(question, answer));
+            string[] categoriesArray = categories.Split(';');
+            for (int i = 0; i < categoriesArray.Length; i++)
+            {
+                categoriesArray[i] = categoriesArray[i].Trim();
+            }
+            this.Data.Add(new DictionaryEntry(question, answer, categoriesArray, note));
         }
 
-        public Tuple<string, string> GetEntry(int index)
+        public void AddEntry(DictionaryEntry entry)
+        {
+            this.Data.Add(entry);
+        }
+
+        public DictionaryEntry GetEntry(int index)
         {
             return this.Data[index];
         }
@@ -53,10 +66,10 @@ namespace DictionaryBase
                     inputStream.Position--;
                 }
                 int dataLength = reader.ReadInt32();
-                this.Data = new List<Tuple<string, string>>(dataLength);
+                this.Data = new List<DictionaryEntry>(dataLength);
                 for (int i = 0; i < dataLength; i++)
                 {
-                    this.Data.Add(new Tuple<string, string>(reader.ReadString(), reader.ReadString()));
+                    this.Data.Add(new DictionaryEntry(reader, this.Version));
                 }
             }
             catch (Exception e)
@@ -83,8 +96,7 @@ namespace DictionaryBase
             writer.Write(this.Data.Count);
             for (int i = 0; i < this.Data.Count; i++)
             {
-                writer.Write(this.Data[i].Item1);
-                writer.Write(this.Data[i].Item2);
+                this.Data[i].Write(writer);
             }
             writer.Close();
             outputStream.Close();
@@ -94,12 +106,14 @@ namespace DictionaryBase
         {
             MemoryStream memoryStream = new MemoryStream(data);
             BinaryReader reader = new BinaryReader(memoryStream);
+            this.SetAsUnixTime(0);
             Action[] loaders = new Action[] {
                 () => this.Name = reader.ReadString(),
                 () => this.Author = reader.ReadString(),
                 () => this.Identifier = reader.ReadString(),
                 () => this.SetAsUnixTime(reader.ReadInt32()),
-                () => this.DoCheck = reader.ReadBoolean()
+                () => this.DoCheck = reader.ReadBoolean(),
+                () => this.Version = reader.ReadUInt32(),
             };
             for (int i = 0; i < loaders.Length; i++)
             {
@@ -123,6 +137,7 @@ namespace DictionaryBase
             writer.Write(this.Identifier);
             writer.Write(this.GetAsUnixTime());
             writer.Write(this.DoCheck);
+            writer.Write((uint)1);
             byte[] bytes = memoryStream.ToArray();
             writer.Close();
             writer.Dispose();
@@ -140,7 +155,7 @@ namespace DictionaryBase
             return (int)(this.CreatedOn - new DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime()).TotalSeconds;
         }
 
-        public void SetEntry(int index, Tuple<string, string> value)
+        public void SetEntry(int index, DictionaryEntry value)
         {
             this.Data[index] = value;
         }
