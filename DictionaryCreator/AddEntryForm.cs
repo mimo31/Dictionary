@@ -31,9 +31,11 @@ namespace DictionaryCreator
                 MessageBox.Show("You must enter the answer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            this.EntryAdded?.Invoke(this, new EntryAddedEventArgs(this.questionTextbox.Text, this.answerTextbox.Text));
+            this.EntryAdded?.Invoke(this, new EntryAddedEventArgs(this.questionTextbox.Text, this.answerTextbox.Text, this.categoriesTextbox.Text, this.noteTextbox.Text));
             this.questionTextbox.Text = "";
             this.answerTextbox.Text = "";
+            this.categoriesTextbox.Text = "";
+            this.noteTextbox.Text = "";
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -41,13 +43,14 @@ namespace DictionaryCreator
             this.TryAdd();
         }
 
-        private void answerTextbox_KeyDown(object sender, KeyEventArgs e)
+        private void submittableKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 this.TryAdd();
                 this.questionTextbox.Focus();
                 e.Handled = true;
+				e.SuppressKeyPress = true;
             }
         }
     }
@@ -56,11 +59,15 @@ namespace DictionaryCreator
     {
         public string Question { get; set; }
         public string Answer { get; set; }
+        public string Categories { get; set; }
+        public string Note { get; set; }
 
-        public EntryAddedEventArgs(string question, string answer) : base()
+        public EntryAddedEventArgs(string question, string answer, string categories, string note) : base()
         {
             this.Question = question;
             this.Answer = answer;
+            this.Categories = categories;
+            this.Note = note;
         }
     }
 

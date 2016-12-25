@@ -45,7 +45,7 @@ namespace DictionaryCreator
 
         private void AcceptEntry(object sender, EntryAddedEventArgs e)
         {
-            this.Dictionary.AddEntry(e.Question, e.Answer);
+            this.Dictionary.AddEntry(e.Question, e.Answer, e.Categories, e.Note);
             this.saved = false;
             this.UpdateFormTitle();
         }
