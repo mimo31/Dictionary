@@ -32,7 +32,7 @@ namespace DictionaryTester
                 Console.WriteLine("It was created on " + Dictionary.CreatedOn.ToString() + ".");
             }
             DoCheck = Dictionary.DoCheck;
-            Console.OutputEncoding = Encoding.Unicode;
+            //Console.OutputEncoding = Encoding.Unicode;
             Test();
         }
 
@@ -163,12 +163,12 @@ namespace DictionaryTester
                 currentIndexes = currentIndexes.OrderBy(v => R.NextDouble()).ToArray();
                 for (int i = 0; i < currentIndexes.Length; i++)
                 {
-                    Tuple<string, string> currentEntry = Dictionary.GetEntry(currentIndexes[i]);
+                    DictionaryEntry currentEntry = Dictionary.GetEntry(currentIndexes[i]);
                     Console.WriteLine();
-                    Console.WriteLine(currentEntry.Item1);
+                    Console.WriteLine(currentEntry.Question);
                     string input = Console.ReadLine();
                     ConsoleColor oldColor = Console.ForegroundColor;
-                    if (input.Equals(currentEntry.Item2))
+                    if (input.Equals(currentEntry.Answer))
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Correct!");
@@ -182,7 +182,7 @@ namespace DictionaryTester
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(currentEntry.Item2);
+                        Console.WriteLine(currentEntry.Answer);
                         Console.ForegroundColor = oldColor;
                         if (doneRight[currentIndexes[i]])
                         {
@@ -200,10 +200,10 @@ namespace DictionaryTester
             for (int i = 0; i < indexes.Length; i++)
             {
                 Console.WriteLine();
-                Tuple<string, string> currentEntry = Dictionary.GetEntry(indexes[i]);
-                Console.WriteLine(currentEntry.Item1);
+                DictionaryEntry currentEntry = Dictionary.GetEntry(indexes[i]);
+                Console.WriteLine(currentEntry.Question);
                 Console.ReadLine();
-                Console.WriteLine(currentEntry.Item2);
+                Console.WriteLine(currentEntry.Answer);
             }
         }
     }
