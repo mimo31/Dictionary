@@ -23,6 +23,7 @@ namespace DictionaryEditor
             this.identifierTextbox.Text = this.parentForm.DictionaryIdentifier;
             this.authorLabel.Text = "Author: " + this.parentForm.DictionaryAuthor;
             this.dateLabel.Text = "Created on " + this.parentForm.DictionaryCreationTime;
+            this.questionCountLabel.Text = this.parentForm.QuestionCount + " question" + (this.parentForm.QuestionCount == 1 ? "" : "s");
             this.loaded = true;
         }
 

@@ -55,8 +55,8 @@ namespace DictionaryEditor
                     this.wordListBox.Items.Clear();
                     for (int i = 0; i < this.dictionary.GetNumberOfEntries(); i++)
                     {
-                        Tuple<string, string> currentEntry = this.dictionary.GetEntry(i);
-                        this.wordListBox.Items.Add(currentEntry.Item1 + " || " + currentEntry.Item2);
+                        DictionaryEntry currentEntry = this.dictionary.GetEntry(i);
+                        this.wordListBox.Items.Add(currentEntry.Question + " || " + currentEntry.Answer + (currentEntry.Note != null && !currentEntry.Note.Equals("") ? " (" + currentEntry.Note + ")" : ""));
                     }
                     if (this.wordListBox.Items.Count > 0)
                     {
@@ -139,24 +139,48 @@ namespace DictionaryEditor
                 MessageBox.Show("You must enter the answer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            this.dictionary.SetEntry(selectedIndex, new Tuple<string, string>(questionString, answerString));
+            string[] categories = this.categoriesEditTextbox.Text.Split(';');
+            for (int i = 0; i < categories.Length; i++)
+            {
+                categories[i] = categories[i].Trim();
+            }
+            string noteString = this.noteEditTextbox.Text;
+            this.dictionary.SetEntry(selectedIndex, new DictionaryEntry(questionString, answerString, categories, this.noteEditTextbox.Text));
             this.saved = false;
             this.UpdateFormTitle();
-            this.wordListBox.Items[selectedIndex] = questionString + " || " + answerString;
+            this.wordListBox.Items[selectedIndex] = questionString + " || " + answerString +  (noteString != null && !noteString.Equals("") ? " (" + noteString + ")" : "");
         }
 
         private void UpdateSelectedIndex()
         {
             if (this.wordListBox.SelectedIndex != -1)
             {
-                Tuple<string, string> selectedEntry = this.dictionary.GetEntry(this.wordListBox.SelectedIndex);
-                this.questionEditTextBox.Text = selectedEntry.Item1;
-                this.answerEditTextBox.Text = selectedEntry.Item2;
+                DictionaryEntry selectedEntry = this.dictionary.GetEntry(this.wordListBox.SelectedIndex);
+                this.questionEditTextBox.Text = selectedEntry.Question;
+                this.answerEditTextBox.Text = selectedEntry.Answer;
+                if (selectedEntry.Categories != null && selectedEntry.Categories.Length != 0)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.Append(selectedEntry.Categories[0]);
+                    for (int i = 1; i < selectedEntry.Categories.Length; i++)
+                    {
+                        builder.Append("; ");
+                        builder.Append(selectedEntry.Categories[i]);
+                    }
+                    this.categoriesEditTextbox.Text = builder.ToString();
+                }
+                else
+                {
+                    this.categoriesEditTextbox.Text = "";
+                }
+                this.noteEditTextbox.Text = selectedEntry.Note;
             }
             else
             {
                 this.questionEditTextBox.Text = "";
                 this.answerEditTextBox.Text = "";
+                this.categoriesEditTextbox.Text = "";
+                this.noteEditTextbox.Text = "";
             }
         }
 
@@ -250,6 +274,14 @@ namespace DictionaryEditor
             get
             {
                 return this.dictionary.CreatedOn.ToString();
+            }
+        }
+
+        public int QuestionCount
+        {
+            get
+            {
+                return this.dictionary.GetNumberOfEntries();
             }
         }
 

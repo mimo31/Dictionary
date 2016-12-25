@@ -39,6 +39,10 @@
             this.informationButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.saveAsButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.categoriesEditTextbox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.noteEditTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // wordListBox
@@ -95,7 +99,7 @@
             // editButton
             // 
             this.editButton.Enabled = false;
-            this.editButton.Location = new System.Drawing.Point(413, 519);
+            this.editButton.Location = new System.Drawing.Point(413, 598);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(75, 23);
             this.editButton.TabIndex = 8;
@@ -106,7 +110,7 @@
             // deleteButton
             // 
             this.deleteButton.Enabled = false;
-            this.deleteButton.Location = new System.Drawing.Point(12, 519);
+            this.deleteButton.Location = new System.Drawing.Point(12, 598);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 10;
@@ -147,11 +151,47 @@
             this.saveAsButton.UseVisualStyleBackColor = true;
             this.saveAsButton.Click += new System.EventHandler(this.saveAsButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 516);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Categories:";
+            // 
+            // categoriesEditTextbox
+            // 
+            this.categoriesEditTextbox.Location = new System.Drawing.Point(12, 533);
+            this.categoriesEditTextbox.Name = "categoriesEditTextbox";
+            this.categoriesEditTextbox.Size = new System.Drawing.Size(476, 20);
+            this.categoriesEditTextbox.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 556);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Note:";
+            // 
+            // noteEditTextbox
+            // 
+            this.noteEditTextbox.Location = new System.Drawing.Point(12, 572);
+            this.noteEditTextbox.Name = "noteEditTextbox";
+            this.noteEditTextbox.Size = new System.Drawing.Size(476, 20);
+            this.noteEditTextbox.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 550);
+            this.ClientSize = new System.Drawing.Size(500, 630);
+            this.Controls.Add(this.noteEditTextbox);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.categoriesEditTextbox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.saveAsButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.informationButton);
@@ -187,6 +227,10 @@
         private System.Windows.Forms.Button informationButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button saveAsButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox categoriesEditTextbox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox noteEditTextbox;
     }
 }
 

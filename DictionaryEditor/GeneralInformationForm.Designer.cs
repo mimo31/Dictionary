@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.identifierTextbox = new System.Windows.Forms.TextBox();
             this.returnButton = new System.Windows.Forms.Button();
+            this.questionCountLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -91,7 +92,7 @@
             // 
             // returnButton
             // 
-            this.returnButton.Location = new System.Drawing.Point(354, 147);
+            this.returnButton.Location = new System.Drawing.Point(354, 170);
             this.returnButton.Name = "returnButton";
             this.returnButton.Size = new System.Drawing.Size(75, 23);
             this.returnButton.TabIndex = 6;
@@ -99,11 +100,21 @@
             this.returnButton.UseVisualStyleBackColor = true;
             this.returnButton.Click += new System.EventHandler(this.returnButton_Click);
             // 
+            // questionCountLabel
+            // 
+            this.questionCountLabel.AutoSize = true;
+            this.questionCountLabel.Location = new System.Drawing.Point(10, 175);
+            this.questionCountLabel.Name = "questionCountLabel";
+            this.questionCountLabel.Size = new System.Drawing.Size(61, 13);
+            this.questionCountLabel.TabIndex = 7;
+            this.questionCountLabel.Text = "0 questions";
+            // 
             // GeneralInformationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 180);
+            this.ClientSize = new System.Drawing.Size(441, 214);
+            this.Controls.Add(this.questionCountLabel);
             this.Controls.Add(this.returnButton);
             this.Controls.Add(this.identifierTextbox);
             this.Controls.Add(this.label2);
@@ -128,5 +139,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox identifierTextbox;
         private System.Windows.Forms.Button returnButton;
+        private System.Windows.Forms.Label questionCountLabel;
     }
 }
