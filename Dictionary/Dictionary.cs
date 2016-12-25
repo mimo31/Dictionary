@@ -46,12 +46,11 @@ namespace DictionaryBase
             return this.Data.Count;
         }
 
-        public Dictionary(string saveAddress)
+        public Dictionary(Stream inputStream)
         {
             BinaryReader reader = null;
             try
             {
-                FileStream inputStream = new FileStream(saveAddress, FileMode.Open);
                 reader = new BinaryReader(inputStream);
                 byte firstByte = reader.ReadByte();
                 if (firstByte == 255)
@@ -83,6 +82,11 @@ namespace DictionaryBase
                     reader.Close();
                 }
             }
+        }
+
+        public Dictionary(string saveAddress) : this(new FileStream(saveAddress, FileMode.Open))
+        {
+
         }
 
         public void Save(string saveAddress)
